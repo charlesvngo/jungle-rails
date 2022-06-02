@@ -1,7 +1,42 @@
 <section class="orders-show">
 
   <header class="page-header">
-    <h1>Order #<%= @order.id %></h1>
+    <h1>Order #<%= @order.id %> - <%= @order.email %></h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% completed_order = @line_items.zip(@products) do |l, p|%>
+        <tr>
+          <% %>
+          <td><%= image_tag p.image.tiny.url %></td>
+          <td><%=p.name%></td>
+          <td><%=p.description%></td>
+          <td><%=l.quantity%></td>
+          <td>$<%=p.price * l.quantity %></td>
+        </tr>
+      <% end %>
+      </tbody>
+      <tfoot>
+          <tr>
+            <th colspan="4">
+              TOTAL:
+            </th>
+            <th>
+              $<%= @order.total_cents / 100.0 %>
+            </th>
+          </tr>
+        </tfoot>
+    </table>
+      
   </header>
 
   <div class="order-summary jumbotron">
