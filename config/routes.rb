@@ -13,8 +13,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create, :show]
 
-  get '/login' => 'sessions#new'
-  post '/login' => 'sessions#create'
+  match 'login' => 'sessions#new', :via => [:get, :post]
   get '/logout' => 'sessions#destroy'
 
   get '/signup' => 'users#new'
